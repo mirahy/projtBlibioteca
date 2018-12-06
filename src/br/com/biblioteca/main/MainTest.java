@@ -7,7 +7,9 @@ package br.com.biblioteca.main;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
 import java.awt.HeadlessException;
 import javax.swing.JFrame;
@@ -33,20 +35,27 @@ public class MainTest extends JFrame{
         
        
        // adicionando barra ao frame
-       jpMenu.setSize(600, 25);
+       //jpMenu.setSize(600, 25);
        jpMenu.setLayout(new BorderLayout());
-       jpMenu.add(jm, BorderLayout.NORTH);
-       add(jpMenu, BorderLayout.NORTH);
+       jpMenu.add(jm);
+       add(jpMenu);
        
        
        //jpDesktop.setSize(600,375 );
-       add(jpDesktop, BorderLayout.CENTER);
+       add(jpDesktop);
        jpDesktop.setLayout(null);
        
        final JTabbedPane tabbedPane = new JTabbedPane();
+       final JTabbedPane tabbedPane1 = new JTabbedPane();
+       
 		tabbedPane.setBounds(0, 0, 502, 371);
 		getContentPane().add(tabbedPane);
-                tabbedPane.addTab("Tab 1", null, jpDesktop, null);
+                tabbedPane.addTab("Tab ", null, jpDesktop, null);
+                
+                tabbedPane1.setBounds(0, 0, 502, 371);
+		getContentPane().add(tabbedPane1);
+                tabbedPane1.addTab("Tab 1", null, jpDesktop, null);
+                
                 
 
         //setando configurações do frame
@@ -54,7 +63,7 @@ public class MainTest extends JFrame{
        this.getContentPane().setBackground(Color.DARK_GRAY);
        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
        this.setTitle("Blibioteca");
-       this.setLayout( new BorderLayout());
+       this.setLayout( new FlowLayout());
        this.setLocationRelativeTo(null);
        this.setVisible(true);
         
@@ -68,7 +77,6 @@ public class MainTest extends JFrame{
         
        
     }
-   
-    
+  
     
 }

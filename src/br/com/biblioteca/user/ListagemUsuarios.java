@@ -30,6 +30,7 @@ public class ListagemUsuarios extends javax.swing.JFrame {
     
     private Connection conn;
     private List<Usuario> Usuarios;
+    
 
     /**
      * Creates new form ListagemAluno

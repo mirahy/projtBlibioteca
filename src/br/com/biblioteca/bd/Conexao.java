@@ -17,7 +17,7 @@ public class Conexao {
         String host = "localhost/";
         String banco = "biblioteca";
         String user = "root";
-        String pass = "root";
+        String pass = "";
         
    
         
