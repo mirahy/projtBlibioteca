@@ -42,6 +42,7 @@ public class Home extends JFrame implements ActionListener{
         JMenuItem  locedit = new JMenuItem("Editar");
         JMenuItem  locdel = new JMenuItem("Excluir");
         JMenuItem  loccon = new JMenuItem("Consultar");
+        JMenuItem  sair = new JMenuItem("Sair");
         
         //construtor do frame
     public Home() throws HeadlessException {
@@ -56,6 +57,7 @@ public class Home extends JFrame implements ActionListener{
         jpMenu.add(userMenu);
         jpMenu.add(bookMenu);
         jpMenu.add(locationMenu);
+        jpMenu.add(sair);
         
         //adicinando itens nos dropdows
         userMenu.add(cad);
@@ -87,6 +89,7 @@ public class Home extends JFrame implements ActionListener{
         locedit.addActionListener(this);
         locdel.addActionListener(this);
         loccon.addActionListener(this);
+        sair.addActionListener(this);
        
 
        //posicianando o menu e o JTabbedPane
@@ -187,6 +190,12 @@ public class Home extends JFrame implements ActionListener{
             LocalizaList listLocaliza = new LocalizaList();
             jtp.addTab("Consulta Localização", listLocaliza);
             jtp.setSelectedComponent(listLocaliza);
+        }
+        
+        if(e.getSource()== sair){
+            
+            //Home.this.dispose();
+            System.exit(0);
         }
         
         
