@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.bliblioteca.valida;
+package br.com.biblioteca.app.validator;
 
 import javax.swing.JOptionPane;
 

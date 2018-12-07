@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.biblioteca.localizacao;
+package br.com.biblioteca.app.model;
 
 import java.util.Calendar;
 

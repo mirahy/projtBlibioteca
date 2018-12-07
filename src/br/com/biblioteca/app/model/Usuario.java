@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.biblioteca.livros;
+package br.com.biblioteca.app.model;
 
 import java.util.Calendar;
 
@@ -11,12 +11,12 @@ import java.util.Calendar;
  *
  * @author IFMS
  */
-public class Livros {
+public class Usuario {
     
     private Integer id;
     private String nome;
-    private Calendar dataLancamento;
-    private Calendar dataCadastro;
+    private String perfil;
+    private Calendar dataCad;
 
     public Integer getId() {
         return id;
@@ -34,20 +34,20 @@ public class Livros {
         this.nome = nome;
     }
 
-    public Calendar getDataLancamento() {
-        return dataLancamento;
+    public String getPerfil() {
+        return perfil;
     }
 
-    public void setDataLancamento(Calendar dataLancamento) {
-        this.dataLancamento = dataLancamento;
+    public void setPerfil(String perfil) {
+        this.perfil = perfil;
     }
 
-    public Calendar getDataCadastro() {
-        return dataCadastro;
+    public Calendar getDataCad() {
+        return dataCad;
     }
 
-    public void setDataCadastro(Calendar dataCadastro) {
-        this.dataCadastro = dataCadastro;
+    public void setDataCad(Calendar dataCad) {
+        this.dataCad = dataCad;
     }
     
     

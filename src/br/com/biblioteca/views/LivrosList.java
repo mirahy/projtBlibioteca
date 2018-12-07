@@ -1,11 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package br.com.biblioteca.user;
 
+package br.com.biblioteca.views;
+
+import br.com.biblioteca.app.controller.LivroController;
 import br.com.biblioteca.bd.Conexao;
+import br.com.biblioteca.app.model.LivroTableMobel;
+import br.com.biblioteca.app.model.Livro;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
@@ -29,75 +28,46 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
-/**
- *
- * @author myrah
- */
-public class ListUser  extends JPanel implements ActionListener{
+
+public class LivrosList extends JPanel implements ActionListener{
     
     private JMenuBar jppMenu;
     private JPanel painelInterno;
-    private JTable tabelaUser;
-    JTable tabela;
+    private JTable tabelaLivros;
     JScrollPane barraRolagem;
     private Connection conn;
-    private List<Usuario> Usuarios;
+    private List<Livro> livros;
 
-    public ListUser() {
+    public LivrosList( ) {
         
         setLayout(new GridBagLayout());
        
        jppMenu = new JMenuBar();
        
        
-        JMenuItem  cad = new JMenuItem("Cadastrar");
-        JMenuItem  edit = new JMenuItem("Editar");
-        JMenuItem  del = new JMenuItem("Excluir");
-        JMenuItem  con = new JMenuItem("Consultar");
-        
-        jppMenu.add(cad);
-        jppMenu.add(edit);
-        jppMenu.add(del);
-        jppMenu.add(con);
-        
-        cad.addActionListener(this);
-        edit.addActionListener(this);
-        del.addActionListener(this);
-        con.addActionListener(this);
-        
-        
         jppMenu.setLayout(new FlowLayout(FlowLayout.LEFT));
         posicionarElemento(0, 0, 1, 1, 1, 1, jppMenu);
         
-//        Object [][] dados = {
-//        {"Ana Monteiro", "48 9923-7898", "ana.monteiro@gmail.com"},
-//        {"João da Silva", "48 8890-3345", "joaosilva@hotmail.com"},
-//        {"Pedro Cascaes", "48 9870-5634", "pedrinho@gmail.com"}
-//    };
-//     
-//    String [] colunas = {"Nome", "Telefone", "Email"}; 
-//    
-//    tabela = new JTable(dados, colunas);
-            
-            Usuarios = new ArrayList<>();
-            tabelaUser = new JTable();
-            conn = Conexao.conecta();
-            tabelaUser.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-            tabelaUser.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        livros = new ArrayList<>();
+        tabelaLivros = new JTable();
+        conn = Conexao.conecta();
+        tabelaLivros.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        tabelaLivros.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
         
-        try {
+         try {
             if(conn == null || conn.isClosed()){
                 JOptionPane.showMessageDialog(null,"Erro ao conectar ao banco de dados!");
                 System.exit(-1);
             }
-            
-                String sql = "SELECT idtbUsuario, nome, perfil, data_cad from tbUsuario";
+               
+
+                String sql = "SELECT idtbLivro, nome, data_lancamento, data_cad from tbLivro";
+                
 
                 Statement stmt = conn.createStatement();
                 
@@ -106,53 +76,49 @@ public class ListUser  extends JPanel implements ActionListener{
                 
 
                 
-                while(res.next()){                    
+                while(res.next()){
+
+                    Livro l = new Livro();
+                    l.setId(res.getInt("idtbLivro"));
+                    l.setNome(res.getString("nome"));
+                    //Calendar c = Calendar.getInstance();
+                    //c.setTime(res.getDate("data_lancamento"));
+                    l.setDataLancamento(res.getDate("data_lancamento"));
+                    //Calendar c1 = Calendar.getInstance();
+                    //c1.setTime(res.getTimestamp("data_cad"));
+                    l.setDataCadastro(res.getTimestamp("data_cad"));
                     
-                    Usuario u = new Usuario();
-                    u.setId(res.getInt("idtbUsuario"));
-                    u.setNome(res.getString("nome"));
-                    u.setPerfil(res.getString("perfil"));
-                    Calendar c2 = Calendar.getInstance();
-                    c2.setTime(res.getTimestamp("data_cad"));
-                    u.setDataCad(c2);
-                    
-                    
-                    Usuarios.add(u);
+                    livros.add(l);
                 }
                 
+                LivroTableMobel modelo = new LivroTableMobel();
+                modelo.setListaLivros(livros);
                 
-                UsuarioTableMobel modelo = new UsuarioTableMobel();
-                modelo.setListaUsuarios(Usuarios);
-                
-                tabelaUser.setModel(modelo);
+                tabelaLivros.setModel(modelo);
+               
                 
                 stmt.close();
                 conn.close();
                 
         } catch (SQLException ex) {
-            Logger.getLogger(ListagemUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LivrosList.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        tabelaUser.addMouseListener(new MouseAdapter(){
+        tabelaLivros.addMouseListener(new MouseAdapter(){
             @Override
             public void mouseClicked(MouseEvent e) {
                 if(e.getClickCount() == 2) {
-                    int row = tabelaUser.getSelectedRow();
-                    String id = String.valueOf(tabelaUser.getValueAt(row, 0));
-                    CadastroUsuario user = new CadastroUsuario();
-                    user.setDados(id);
-                    user.setVisible(true);
-                    setVisible(false);
+                    int row = tabelaLivros.getSelectedRow();
+                    String id = String.valueOf(tabelaLivros.getValueAt(row, 0));
+                    LivroController lc = new LivroController();
+                    lc.consultaId(id);
                 }
             }
             
         });
         
+        barraRolagem = new JScrollPane(tabelaLivros);
         
-        barraRolagem = new JScrollPane(tabelaUser);
-      
-        
-   
         painelInterno = new JPanel();
         painelInterno.setLayout(new GridLayout(1, 1));;
         painelInterno.setBackground(Color.red);
@@ -161,8 +127,7 @@ public class ListUser  extends JPanel implements ActionListener{
         
     }
     
-    
-     void posicionarElemento(int x, int y, int largura, int altura,
+    void posicionarElemento(int x, int y, int largura, int altura,
             double scalaX, double scalaY, Component elemento){
         
         GridBagConstraints restricoes = new GridBagConstraints();

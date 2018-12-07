@@ -1,14 +1,12 @@
 
 package br.com.biblioteca.bd;
 
-import br.com.biblioteca.main.BlibiotecaMain;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 public class Conexao {
 

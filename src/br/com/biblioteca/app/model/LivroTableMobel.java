@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.biblioteca.livros;
+package br.com.biblioteca.app.model;
 
-import br.com.biblioteca.livros.Livros;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +17,7 @@ import javax.swing.table.AbstractTableModel;
 public class LivroTableMobel extends AbstractTableModel{
     
     private List<String> cabecalho;
-    private List<Livros> listaLivros;
+    private List<Livro> listaLivros;
 
     public LivroTableMobel() {
         
@@ -77,11 +76,11 @@ public class LivroTableMobel extends AbstractTableModel{
 
     }
 
-    public List<Livros> getListaLivros() {
+    public List<Livro> getListaLivros() {
         return listaLivros;
     }
 
-    public void setListaLivros(List<Livros> listaLivros) {
+    public void setListaLivros(List<Livro> listaLivros) {
         this.listaLivros = listaLivros;
     }
     

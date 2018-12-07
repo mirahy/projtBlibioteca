@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.biblioteca.localizacao;
+package br.com.biblioteca.app.model;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -15,20 +15,20 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author IFMS
  */
-public class LocalizacaoTableMobel extends AbstractTableModel{
+public class UsuarioTableMobel extends AbstractTableModel{
     
     private List<String> cabecalho;
-    private List<Localizacao> listaLocalizacao;
+    private List<Usuario> listaUsuarios;
 
-    public LocalizacaoTableMobel() {
+    public UsuarioTableMobel() {
         
         cabecalho = new ArrayList<>();
-        listaLocalizacao = new ArrayList<>();
+        listaUsuarios = new ArrayList<>();
         
         cabecalho.add("Id");
-        cabecalho.add("Estante");
-        cabecalho.add("Prateleira");
-        cabecalho.add("Coluna");
+        cabecalho.add("Nome");
+        cabecalho.add("Perfil");
+        cabecalho.add("Data Cadastro");
     }
 
     
@@ -41,7 +41,7 @@ public class LocalizacaoTableMobel extends AbstractTableModel{
 
     @Override
     public int getRowCount() {
-        return listaLocalizacao.size();
+        return listaUsuarios.size();
     }
 
     @Override
@@ -55,30 +55,31 @@ public class LocalizacaoTableMobel extends AbstractTableModel{
         switch(columnIndex){
             case 0:
                 // retornar id
-                return listaLocalizacao.get(rowIndex).getId();
+                return listaUsuarios.get(rowIndex).getId();
             case 1:
-                //retornar estante
-                return listaLocalizacao.get(rowIndex).getEstante();
+                //retornar nome
+                return listaUsuarios.get(rowIndex).getNome();
             case 2:
-                //retornar preteleira
-                return listaLocalizacao.get(rowIndex).getPrateleira();
+                //retornar perfil
+                return listaUsuarios.get(rowIndex).getPerfil();
             case 3:
-                //retornar coluna
-                return listaLocalizacao.get(rowIndex).getColuna();
+                //retornar data cadastro
+                //Calendar c = listaAlunos.get(rowIndex).getDataNascimento();
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                
+                return sdf.format(listaUsuarios.get(rowIndex).getDataCad().getTime()) ;
                 default:
                     return null;
         }
 
     }
 
-    public List<Localizacao> getListaLocalizacao() {
-        return listaLocalizacao;
+    public List<Usuario> getListaUsuarios() {
+        return listaUsuarios;
     }
 
-    public void setListaLocalizacao(List<Localizacao> listaLocalizacao) {
-        this.listaLocalizacao = listaLocalizacao;
+    public void setListaUsuarios(List<Usuario> listaUsuarios) {
+        this.listaUsuarios = listaUsuarios;
     }
-
-    
     
 }
